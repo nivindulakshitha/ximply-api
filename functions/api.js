@@ -16,7 +16,7 @@ api.use((req, res, next) => {
 api.use("/api", routeHandler)
 
 api.get("/api", (req, res) => {
-    console.log(process.env.MONGODB_URI)
+    console.log(Netlify.env.get("MONGODB_URI"))
     mongoose.connect(process.env.MONGODB_URI, {
         dbName: process.env.DB_NAME
     }).then(() => {
