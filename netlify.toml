@@ -2,7 +2,7 @@
     functions="functions"
 
 [functions]
-  external_node_modules = ["express"]
+  external_node_modules = ["express", "cors", "dotenv", "serverless-http"]
   node_bundler = "esbuild"
 
 [[redirects]]
