@@ -5,7 +5,6 @@ const serverless = require("serverless-http")
 const mongoose = require("mongoose")
 const routeHandler = require("./handler")
 
-
 api = express()
 api.use(express.json())
 api.use(cors())
@@ -16,7 +15,6 @@ api.use((req, res, next) => {
 api.use("/api", routeHandler)
 
 api.get("/api", (req, res) => {
-    console.log(Netlify.env.get("MONGODB_URI"))
     mongoose.connect(process.env.MONGODB_URI, {
         dbName: process.env.DB_NAME
     }).then(() => {
