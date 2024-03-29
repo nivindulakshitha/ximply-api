@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 const authStudent = async (req, res) => {
     const { username, password } = req.body;
-    const credential = await Credential.findOne({ "username": username });
+    const credential = await Credential.findOne({ "username": username }).lean();
 
     if (!credential) {
         return res.status(404).json({ "username": username, "error": "No such username can be found" })
@@ -19,7 +19,6 @@ const authStudent = async (req, res) => {
             res.status(200).json(credential)
         }
     }
-
 }
 
 const registerStudent = async (req, res) => {
@@ -30,11 +29,13 @@ const registerStudent = async (req, res) => {
         password: encryptPassword(password)
     })
 
-    await newUser.save().then(() => {
-        return res.status(200).json({ "message": "User added", "username": username })
-    }).catch(error => {
-        return res.status(400).json({ "message": "User was not added", "username": username, "error": error })
-    })
+    try {
+        await newUser.save();
+        return res.status(200).json({ "message": "User successfully added", "username": username });
+    } catch (error) {
+        console.error(error); // Log the error for debugging
+        return res.status(500).json({ "message": "An error occurred while adding the user", "username": username, "error": error.message });
+    }
 }
 
 const encryptPassword = (password) => {
