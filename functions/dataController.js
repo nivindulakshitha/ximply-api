@@ -8,15 +8,18 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 const authStudent = async (req, res) => {
     const { username, password } = req.body;
+    console.log(username, password)
     const credential = await Credential.findOne({ "username": username }).lean();
+    console.log(credential)
 
     if (!credential) {
-        return res.status(404).json({ "username": username, "error": "No such username can be found" })
+        return res.status(204).json({ "username": username, "error": "No such username can be found" })
     } else {
         const decryptedPassword = decryptPassword(credential.password);
         if (decryptedPassword == password) {
-            credential.password = decryptedPassword
-            res.status(200).json(credential)
+            return res.status(200).json(credential)
+        } else {
+            return res.status(205).json({ "username": username, "error": "Password cannot be matched" })
         }
     }
 }
