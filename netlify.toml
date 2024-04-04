@@ -1,5 +1,5 @@
 [build]
-    functions="functions"
+    functions="src"
 
 [[redirects]]
     force=true

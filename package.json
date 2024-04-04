@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "netlify-lambda serve src"
+    "start": "netlify serve src"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.3",
+    "netlify-lambda": "^2.0.16",
     "nodemon": "^3.1.0",
     "serverless-http": "^3.2.0",
     "supertest": "^6.3.4"
